@@ -1,0 +1,20 @@
+name: Sync to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Sync to Production Repo
+        uses: wei/git-sync@v3
+        with:
+          source_repo: https://${{ secrets.PROD_TOKEN }}@github.com/balaji1103/private-repo.git
+          source_branch: main
+          destination_repo: https://${{ secrets.PROD_TOKEN }}@github.com/balaji1103/public-repo.git
+          destination_branch: main
